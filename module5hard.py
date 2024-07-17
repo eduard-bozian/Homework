@@ -1,5 +1,3 @@
-import hashlib
-import time
 
 class User:
     def __init__(self, nickname, password, age):
@@ -7,7 +5,9 @@ class User:
         self.password = self.hash_password(password)
         self.age = age
     def hash_password(self, password):
-        return hashlib.sha256(password.encode()).hexdigest()
+        return hash(password)
+
+
 class Video:
     def __init__(self, title, duration, time_now=0, adult_mode=False):
         self.title = title
@@ -21,7 +21,7 @@ class UrTube:
         self.current_user = None
     def log_in(self, nickname, password):
         for user in self.users:
-            if user.nickname == nickname and user.password == self.hash_password(password):
+            if user.nickname == nickname and user.password == password:
                 self.current_user = user
                 print(f"Вход выполнен успешно, добро пожаловать, {user.nickname}!")
                 return True
@@ -42,7 +42,7 @@ class UrTube:
         for video in videos:
             if not any(v.title == video.title for v in self.videos):
                 self.videos.append(video)
-                print(f"Видео '{video.title}' успешно добавлено.")
+                print(f" {video.title}")
     def get_videos(self, search_term):
         search_term = search_term.lower()
         found_videos = [video.title for video in self.videos if search_term in video.title.lower()]
@@ -62,9 +62,8 @@ class UrTube:
         while video.time_now < video.duration:
             print(f"Время просмотра: {video.time_now} cek")
             video.time_now += 1
-            time.sleep(1)
         print("Конец видео")
-        video.time_now = 0
+
 
 ur = UrTube()
 v1 = Video('Лучший язык программирования 2024 года', 200)
@@ -80,3 +79,4 @@ ur.watch_video('Для чего девушкам парень программи
 ur.register('vasya_pupkin', 'F8098FM8fjm9jmi', 55)
 print(ur.current_user)
 ur.watch_video('Лучший язык программирования 2024 года!')
+
