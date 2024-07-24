@@ -4,9 +4,14 @@ class User:
         self.nickname = nickname
         self.password = self.hash_password(password)
         self.age = age
+
     def hash_password(self, password):
         return hash(password)
 
+    def __str__(self):
+        return f'User(nickname={self.nickname}, age={self.age})'
+    def __eq__(self, other):
+        return self.nickname == other.nickname and self.password == other.password
 
 class Video:
     def __init__(self, title, duration, time_now=0, adult_mode=False):
@@ -79,4 +84,3 @@ ur.watch_video('Для чего девушкам парень программи
 ur.register('vasya_pupkin', 'F8098FM8fjm9jmi', 55)
 print(ur.current_user)
 ur.watch_video('Лучший язык программирования 2024 года!')
-
