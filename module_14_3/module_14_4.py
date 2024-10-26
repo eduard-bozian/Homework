@@ -5,7 +5,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from humanfriendly.terminal import message
 import crud_functions
 
-api = '7157374333:AAH4b9SXGWEEGTocLoR65jOnTIDwg4yi7kY'
+api = ''
 bot = Bot(token=api)
 dp = Dispatcher(bot, storage=MemoryStorage())
 
