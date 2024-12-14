@@ -17,3 +17,40 @@ async def get_user(user_id: UserID = Path(...)):
 @app.get("/user/{username}/{age}", response_model=User)
 async def get_user(username: User = Path(...), age: User = Path(...)):
     return {"username": username, "age": age}
+    '''
+GET
+/user/{user_id} Get Main Page
+Parameters
+Name
+Description
+user id * required
+integer
+(path)
+Enter User ID
+Example : 1
+maximum: 100
+minimum: 1
+GET
+/user/[username]/[age] Get Main Page
+Parameters
+Name
+Description
+username * required
+string
+(path)
+Enter username
+Example : UrbanUser
+UrbanUser
+minLength: 5
+maxLength: 20
+age * required
+integer
+Enter age
+Example : 24
+(path)
+24
+maximum: 120
+minimum: 18
+
+    
+    '''
