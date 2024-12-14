@@ -1,20 +1,19 @@
-from fastapi import FastAPI, Path
-from typing import Annotated
+from fastapi import FastAPI, Path, Annotated
 from pydantic import BaseModel, Field
 
 app = FastAPI()
 
 class UserID(BaseModel):
-    user_id: int = Field(..., description="Enter User ID", example=1, gt=0, le=100)
+    user_id: int = Field(..., ge=1, le=100, description="Enter User ID", example=1)
 
 class User(BaseModel):
-    username: str = Field(..., description="Enter username", example="UrbanUser", min_length=5, max_length=20)
-    age: int = Field(..., description="Enter age", example=24, gt=17, le=120)
+    username: str = Field(..., min_length=5, max_length=20, description="Enter username", example="UrbanUser")
+    age: int = Field(..., ge=18, le=120, description="Enter age", example=24)
 
 @app.get("/user/{user_id}", response_model=UserID)
 async def get_user(user_id: UserID = Path(...)):
     return user_id
 
 @app.get("/user/{username}/{age}", response_model=User)
-async def get_user(username: User.username, age: User.age = Path(...)):
-    return User(username=username, age=age)
+async def get_user(username: User = Path(...), age: User = Path(...)):
+    return {"username": username, "age": age}
